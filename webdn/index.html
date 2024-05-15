@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera Viewer</title>
+    <link rel="stylesheet" href="style.css">
+
+
+
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAY6R1oAmkJ0ZDcuiaOlA2cFOWqSQnGL-A",
+            authDomain: "datn-fire-2024.firebaseapp.com",
+            databaseURL: "https://datn-fire-2024-default-rtdb.firebaseio.com",
+            projectId: "datn-fire-2024",
+            storageBucket: "datn-fire-2024.appspot.com",
+            messagingSenderId: "34768959677",
+            appId: "1:34768959677:web:889ae1d6d7cb5239249fd4",
+            measurementId: "G-1FVPPEVWNK"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const storage = firebase.storage();
+        const storageRef = storage.ref();
+        const database = firebase.database();
+    </script>
+</head>
+
+<body>
+    <h1>Danh sách các hình ảnh vụ cháy <img class="anh" src="lua.png"></h1>
+
+    <div class="bang"> <span>Chọn ngày</span>
+        <input type="date" id="date"
+            style=" cursor: pointer; padding: 5px; margin-bottom: 10px; width: 20%; font-size: 17px;">
+        <table id="firelist" class="table table-bordered border-primary">
+            <thead>
+                <tr>
+                    <th scope="col">Ngày</th>
+                    <th scope="col">Hình Ảnh</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <script>
+
+        // hiển thị theo danh sach
+        var date = document.getElementById('date');
+        date.addEventListener('change', function () {
+            var selectedDate = new Date(date.value);
+            var formattedDate = ("0" + selectedDate.getDate()).slice(-2) + "-" + ("0" + (selectedDate.getMonth() + 1)).slice(-2) + "-" + selectedDate.getFullYear();
+            database.ref("fire/" + formattedDate).on("value", (snapshot) => {
+                firelist.innerHTML = "";
+                const thead = document.createElement("thead");
+                const tbody = document.createElement("tbody");
+                thead.innerHTML = `
+            <tr>
+                <th scope="col">Ngày</th>
+                <th scope="col">Hình Ảnh</th>
+            </tr>`;
+                snapshot.forEach((childSnapshot) => {
+                    const detail = childSnapshot.val();
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                <td>${detail.date}</td>
+                <td><img src="${detail.img}" alt="Hình Ảnh" style="width:300px;"></td>`;
+                
+                    tbody.appendChild(row);
+                });
+                firelist.appendChild(thead);
+                firelist.appendChild(tbody);
+            });
+        });
+
+    </script>
+</body>
+
+</html>

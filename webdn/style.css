@@ -1,0 +1,53 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}
+.container {
+    max-width: 800px; /* Đặt chiều rộng tối đa của container */
+    margin: 0 auto; /* Căn giữa container */
+    padding: 20px;
+}
+@media (max-width: 768px) {
+    .container {
+        padding: 10px; /* Giảm padding cho màn hình nhỏ hơn */
+    }
+}
+h1 {
+    text-align: center;
+}
+#camera-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+#camera-stream {
+    border: 2px solid #333;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #ffffff;
+    box-shadow: 8px 8px 8px 8px #cac9c9;
+
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.bang {
+    width: 80%; /* Điều chỉnh kích thước của div theo ý muốn */
+    margin: 0 auto; /* Căn giữa div theo chiều ngang */
+    text-align: center; /* Căn giữa nội dung bên trong div theo chiều ngang */
+    padding: 20px; /* Thêm padding cho div */
+}
+.anh{
+    width: 50px;
+    padding-top: 30px;
+}
